@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="gitSeeker">
+<head>
+	<meta charset="UTF-8">
+	<title>Git users search</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body ng-controller="searchController">
+	<header>
+		<div class="container-fluid">
+			<div class="row">
+				<div id="title" class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><h1><img id ="git-icon" src="http://www.iconsdb.com/icons/preview/white/github-9-xxl.png"> GitHub Users</h1></div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><form class="input-group">	
+					<input type="text" class="form-control" ng-model="username" placeholder="Enter username" autofocus><span class="input-group-btn"><button class="btn btn-default" ng-click="searchUsers()"><span class="glyphicon glyphicon-search"></button></span>
+				</form></div>
+			</div>
+		</div>
+	</header>
+
+	<section>
+		<div class="container">
+			<div class="row">
+				<div ng-show="avatar" class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<div class="avatar">
+						<img class="user-avatar" ng-src="{{ avatar }}">
+					</div>
+					<div class="info">
+						<li><h2>{{name}}</h2></li>
+						<li><h4>Respositories: {{repos}}</h4></li>
+						<li><h4>Followers: {{followers}}</h4></li>
+					</div>
+				</div>
+				<div id="not-found" ng-show="userNotFound" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				{{ userNotFound }}
+				</div>
+				<div id="found" ng-show="found" class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<div class="repos" ng-repeat="repo in reposReceived">
+						<h3><a href="{{repo.html_url}}">{{repo.name}}</a></h3>
+						<p>{{repoLanguage(repo)}}</p>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/controllers/mainController.js"></script>
+	<script src="app/factory/factory.js"></script>
+</body>
+</html>
